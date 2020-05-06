@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "hcomplex"
+    }
+  },
+  "defaultProject": "hcomplex",
+  "cli": {
+    "analytics": "301cf29e-45ba-41cf-aeec-03b0f006607c"
+  }
 }

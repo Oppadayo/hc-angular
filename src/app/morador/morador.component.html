@@ -1,0 +1,52 @@
+<app-detalhe-morador *ngIf="moradorSelecionado" [morador] = "moradorSelecionado"></app-detalhe-morador>
+
+<div class="card bg-light mb-3">
+  <div class="card-header">Moradores</div>
+  <div class="card-body">
+
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/morador/form']">Novo Morador</button>
+  </div>
+  <div *ngIf="moradores?.length == 0" class="alert alert-info">
+    Nenhum morador cadastrado.
+  </div>
+    <table class="table table-bordered table-striped" *ngIf="moradores?.length>0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Nº Casa</th>
+          <th>Telefone</th>
+          <th>Detalhe</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let morador of moradores">
+          <td>{{ morador.id }}</td>
+          <td>{{ morador.nome }}</td>
+          <td>{{ morador.nrCasa }}</td>
+          <td>{{ morador.telefone }}</td>
+          <td>
+            <button type="button" name="detalhe" (click)="abrirModal(morador)" class="btn btn-info"><span class="material-icons">
+              contacts
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="editar" [routerLink]="['/morador/form', morador.id]" class="btn btn-warning"><span class="material-icons">
+              edit
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="excluir" (click)='delete(morador)' class="btn btn-danger"><span class="material-icons">
+              delete
+              </span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-paginadorm *ngIf="paginador" [paginador] = "paginador"></app-paginadorm>
+  </div>
+</div>
+

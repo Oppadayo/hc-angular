@@ -4,6 +4,7 @@ import { DespesaService } from '../despesa.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
+import { TipoDespesa } from '../tipodespesa';
 
 @Component({
   selector: 'app-form-despesa',
@@ -13,6 +14,7 @@ import { HttpEventType } from '@angular/common/http';
 export class FormDespesaComponent implements OnInit {
 
   despesa: Despesa = new Despesa();
+  tipoDespesa: TipoDespesa[]; 
 
   constructor(private despesaService: DespesaService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -27,6 +29,7 @@ export class FormDespesaComponent implements OnInit {
         this.despesaService.getDespesa(id).subscribe((despesa) => this.despesa = despesa);
       }
     });
+    this.despesaService.getTipoDespesa().subscribe((tipo) => this.tipoDespesa = tipo)
   }
 
   create(): void{
@@ -54,5 +57,7 @@ export class FormDespesaComponent implements OnInit {
       });
     });
   }
-
+   compararTipo(t1:TipoDespesa, t2:TipoDespesa): boolean{
+    return t1 === null || t2 === null || t1 === undefined || t2 === undefined ? false : t1.id === t2.id;
+   }
 }

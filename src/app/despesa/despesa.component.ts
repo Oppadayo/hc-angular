@@ -28,6 +28,7 @@ export class DespesaComponent implements OnInit {
    
        const valord = res.map(res => res.valor);
        const datad = res.map(res => res.data);
+       const tipod = res.map(res => res.tipoDespesa.tipo)
               
        this.chart = new Chart('canvas', {
         responsive: true,
@@ -63,7 +64,7 @@ export class DespesaComponent implements OnInit {
         maintainAspectRatio: true,
         type: 'doughnut',  
         data: {
-          labels: datad,
+          labels: tipod,
           datasets: [
             {              
               data: valord,

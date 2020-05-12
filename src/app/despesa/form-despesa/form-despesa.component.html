@@ -36,6 +36,13 @@
               Telefone é um campo obrigatório
             </div>            
         </div>
+
+        <div class="form-group">
+          <label for="tipo">Tipo de Despesa: </label>
+          <select  [compareWith]="compararTipo" type="text" class="form-control" name="tipo" [(ngModel)]="despesa.tipoDespesa" required #data="ngModel">
+            <option *ngFor="let tipo of tipoDespesa" [ngValue]="tipo">{{ tipo.tipo }}</option>
+          </select>
+        </div>        
           
           <button type="submit" class="btn btn-success" role="button" (click)='create()' *ngIf="!despesa.id else elseBlock" [disabled]="!despesaForm.form.valid">Salvar</button>
   

@@ -6,6 +6,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Contador } from '../contador/contador';
+import { TipoDespesa } from './tipodespesa';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class DespesaService {
       return true;
   }
   return false;
+}
+
+getTipoDespesa(): Observable<TipoDespesa[]>{
+  return this.http.get<TipoDespesa[]>(this.urlEndPoint + '/tipodespesas');
 }
 
   getCharts():Observable<Despesa[]>{

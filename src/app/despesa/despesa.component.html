@@ -1,0 +1,96 @@
+<div class=" row">
+  <div class="col-sm-6">
+    <div class="card bg-light mb-3">
+      <div class="card-header">Despesas</div>
+      <div class="card-body">
+
+      <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/despesa/form']">Nova Despesa</button>
+      </div>
+  
+      <table class="table table-bordered table-striped" >
+     
+        <div>
+          <canvas id="canvas">{{ chart }}</canvas>
+        </div>       
+  
+    </table>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="card bg-light mb-3">
+      <div class="card-header">Despesas</div>
+      <div class="card-body">
+
+      <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/despesa/form']">Nova Despesa</button>
+      </div>
+  
+      <table class="table table-bordered table-striped" >     
+        
+        <div class="col-sm-6" >
+          <canvas class="relative" id="canvaspie" height="345">{{ chart }}</canvas>
+        </div>
+  
+    </table>
+    </div>
+    </div>
+  </div>
+</div>
+
+<app-detalhe-despesa *ngIf="despesaSelecionado" [despesa] = "despesaSelecionado"></app-detalhe-despesa>
+
+<div class="card bg-light mb-3">
+  <div class="card-header">Despesas</div>
+  <div class="card-body">
+
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/despesa/form']">Nova Despesa</button>
+  </div>
+  <div *ngIf="despesas?.length == 0" class="alert alert-info">
+    Nenhuma Despesa cadastrada.
+  </div>
+    <table class="table table-bordered table-striped" *ngIf="despesas?.length>0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Tipo</th>
+          <th>Detalhes</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let despesa of despesas">
+          <td>{{ despesa.id }}</td>
+          <td>{{ despesa.nome }}</td>
+          <td>{{ despesa.valor }}</td>
+          <td>{{ despesa.data }}</td>
+         <td>
+            <button type="button" name="detalhe" (click)="abrirModal(despesa)" class="btn btn-info"><span class="material-icons">
+              contacts
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="editar" [routerLink]="['/despesa/form', despesa.id]" class="btn btn-warning"><span class="material-icons">
+              edit
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="excluir" (click)='delete(despesa)' class="btn btn-danger"><span class="material-icons">
+              delete
+              </span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-paginadord *ngIf="paginador" [paginador] = "paginador"></app-paginadord>
+  </div>
+</div>
+
+

@@ -1,0 +1,52 @@
+<app-detalhe-contador *ngIf="contadorSelecionado" [contador] = "contadorSelecionado"></app-detalhe-contador>
+
+<div class="card bg-light mb-3">
+  <div class="card-header">Contadores</div>
+  <div class="card-body">
+
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/contador/form']">Novo Contador</button>
+  </div>
+  <div *ngIf="contadores?.length == 0" class="alert alert-info">
+    Nenhum contador cadastrado.
+  </div>
+    <table class="table table-bordered table-striped" *ngIf="contadores?.length>0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>CRC</th>
+          <th>Telefone</th>
+          <th>Detalhe</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contador of contadores">
+          <td>{{ contador.id }}</td>
+          <td>{{ contador.nome }}</td>
+          <td>{{ contador.crc }}</td>
+          <td>{{ contador.telefone }}</td>
+          <td>
+            <button type="button" name="detalhe" (click)="abrirModal(contador)" class="btn btn-info"><span class="material-icons">
+              contacts
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="editar" [routerLink]="['/contador/form', contador.id]" class="btn btn-warning"><span class="material-icons">
+              edit
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="excluir" (click)='delete(contador)' class="btn btn-danger"><span class="material-icons">
+              delete
+              </span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-paginadorc *ngIf="paginador" [paginador] = "paginador"></app-paginadorc>
+  </div>
+</div>
+

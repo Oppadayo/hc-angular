@@ -1,18 +1,18 @@
-import { Router } from '@angular/router';
-import { Morador } from './morador';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Despesa } from './despesa';
 import { map, catchError, tap } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-
+import { Contador } from '../contador/contador';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MoradorService {
+export class DespesaService {
 
-  private urlEndPoint = 'http://localhost:8080/api/moradores';
+  private urlEndPoint = 'http://localhost:8080/api/despesas';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -25,17 +25,22 @@ export class MoradorService {
   return false;
 }
 
-
-  getMoradores(page: number): Observable<any>{
+  getCharts():Observable<Despesa[]>{
+    return this.http.get<Despesa[]>(this.urlEndPoint).pipe(
+      map( result => result)
+    )
+  }
+  
+  getDespesas(page: number): Observable<any>{
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       tap((response: any) => {
-        (response.content as Morador[]).forEach(morador => {
+        (response.content as Despesa[]).forEach(despesa => {
 
         });
       }),
       map( (response: any) => {
-        (response.content as Morador[]).map(morador => {
-          return morador;
+        (response.content as Despesa[]).map(despesa => {
+          return despesa;
         });
         return response;
       })
@@ -43,9 +48,9 @@ export class MoradorService {
   }
 
 
-  create(morador: Morador): Observable<Morador>{
-  return this.http.post(this.urlEndPoint, morador, {headers: this.httpHeaders}).pipe(
-    map((response: any) => response.morador as Morador),
+  create(despesa: Despesa): Observable<Despesa>{
+  return this.http.post(this.urlEndPoint, despesa, {headers: this.httpHeaders}).pipe(
+    map((response: any) => response.despesa as Despesa),
     catchError( e => {
       if (this.isNoAutorizado(e)){
         return throwError(e);
@@ -61,17 +66,17 @@ export class MoradorService {
   );
   }
 
-  getMorador(id): Observable<Morador>{
+  getDespesa(id): Observable<Despesa>{
 
-    return this.http.get<Morador>(`${this.urlEndPoint}/${id}`).pipe(
+    return this.http.get<Despesa>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
-        this.router.navigate(['/morador']);
+        this.router.navigate(['/des']);
         if (this.isNoAutorizado(e)){
           return throwError(e);
         }
         Swal.fire({
           icon: 'error',
-          title: 'Erro ao mostrar',
+          title: 'Erro ao atualizar',
           text: e.error.mensagem
         });
 
@@ -80,9 +85,9 @@ export class MoradorService {
     );
   }
 
-  update(morador: Morador): Observable<Morador>{
-    return this.http.put(`${this.urlEndPoint}/${morador.id}`, morador, {headers: this.httpHeaders}).pipe(
-      map((response: any) => response.morador as Morador),
+  update(despesa: Despesa): Observable<Despesa>{
+    return this.http.put(`${this.urlEndPoint}/${despesa.id}`, despesa, {headers: this.httpHeaders}).pipe(
+      map((response: any) => response.despesa as Despesa),
       catchError( e => {
 
         if (this.isNoAutorizado(e)){
@@ -99,8 +104,8 @@ export class MoradorService {
     );
   }
 
-  delete(id): Observable<Morador>{
-    return this.http.delete<Morador> (`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+  delete(id): Observable<Despesa>{
+    return this.http.delete<Despesa> (`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError( e => {
         if (this.isNoAutorizado(e)){
           return throwError(e);
@@ -131,6 +136,4 @@ export class MoradorService {
       })
     );
   }
-
-
 }

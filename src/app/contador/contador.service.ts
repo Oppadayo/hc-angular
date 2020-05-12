@@ -1,18 +1,17 @@
 import { Router } from '@angular/router';
-import { Morador } from './morador';
+import { Contador } from './contador';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class MoradorService {
+export class ContadorService {
 
-  private urlEndPoint = 'http://localhost:8080/api/moradores';
+  private urlEndPoint = 'http://localhost:8080/api/contadores';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -26,16 +25,16 @@ export class MoradorService {
 }
 
 
-  getMoradores(page: number): Observable<any>{
+  getContadores(page: number): Observable<any>{
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       tap((response: any) => {
-        (response.content as Morador[]).forEach(morador => {
+        (response.content as Contador[]).forEach(contador => {
 
         });
       }),
       map( (response: any) => {
-        (response.content as Morador[]).map(morador => {
-          return morador;
+        (response.content as Contador[]).map(contador => {
+          return contador;
         });
         return response;
       })
@@ -43,9 +42,9 @@ export class MoradorService {
   }
 
 
-  create(morador: Morador): Observable<Morador>{
-  return this.http.post(this.urlEndPoint, morador, {headers: this.httpHeaders}).pipe(
-    map((response: any) => response.morador as Morador),
+  create(contador: Contador): Observable<Contador>{
+  return this.http.post(this.urlEndPoint, contador, {headers: this.httpHeaders}).pipe(
+    map((response: any) => response.contador as Contador),
     catchError( e => {
       if (this.isNoAutorizado(e)){
         return throwError(e);
@@ -61,17 +60,17 @@ export class MoradorService {
   );
   }
 
-  getMorador(id): Observable<Morador>{
+  getContador(id): Observable<Contador>{
 
-    return this.http.get<Morador>(`${this.urlEndPoint}/${id}`).pipe(
+    return this.http.get<Contador>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
-        this.router.navigate(['/morador']);
+        this.router.navigate(['/contador']);
         if (this.isNoAutorizado(e)){
           return throwError(e);
         }
         Swal.fire({
           icon: 'error',
-          title: 'Erro ao mostrar',
+          title: 'Erro ao atualizar',
           text: e.error.mensagem
         });
 
@@ -80,9 +79,9 @@ export class MoradorService {
     );
   }
 
-  update(morador: Morador): Observable<Morador>{
-    return this.http.put(`${this.urlEndPoint}/${morador.id}`, morador, {headers: this.httpHeaders}).pipe(
-      map((response: any) => response.morador as Morador),
+  update(contador:Contador): Observable<Contador>{
+    return this.http.put(`${this.urlEndPoint}/${contador.id}`, contador, {headers: this.httpHeaders}).pipe(
+      map((response: any) => response.contador as Contador),
       catchError( e => {
 
         if (this.isNoAutorizado(e)){
@@ -99,8 +98,8 @@ export class MoradorService {
     );
   }
 
-  delete(id): Observable<Morador>{
-    return this.http.delete<Morador> (`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+  delete(id): Observable<Contador>{
+    return this.http.delete<Contador> (`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError( e => {
         if (this.isNoAutorizado(e)){
           return throwError(e);
@@ -131,6 +130,4 @@ export class MoradorService {
       })
     );
   }
-
-
 }

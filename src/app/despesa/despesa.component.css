@@ -1,0 +1,14 @@
+.relative{
+    position: relative;
+    left: 100px;  
+    top: 0;
+}
+
+@media only screen and (max-width: 600px){
+    .relative{
+        position: relative;
+        left: 0px;  
+        top: 0;
+    }
+    
+}

@@ -1,0 +1,66 @@
+<div>
+    <div class="card bg-light mb-3">
+      <div class="card-header">Adicionar Sindico</div>
+      <div class="card-body">
+        <form #sindicoForm="ngForm">
+          <div class="form-group">
+            <label for="nome">Nome: </label>
+            <input type="text" class="form-control" name="nome" [(ngModel)]="sindico.nome" required minlength="2" #nome="ngModel">
+          </div>
+          <div class="alert alert-danger" *ngIf="nome.invalid && (nome.dirty || nome.touched)">
+            <div *ngIf="nome.errors.required">
+              Nome é um campo obrigatório
+            </div>
+            <div *ngIf="nome.errors.required">
+              Nome deve conter ao menos 2 caracteres
+            </div>
+          </div>
+  
+  
+          <div class="form-group">
+            <label for="cpf">CPF: </label>
+            <input type="text" class="form-control" name="cpf" [(ngModel)]="sindico.cpf" required minlength="11" maxlength="11" #cpf="ngModel">
+          </div>
+          <div class="alert alert-danger" *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)">
+            <div *ngIf="cpf.errors.required">
+              CPF é um campo obrigatório
+            </div>
+            <div *ngIf="cpf.errors.required">
+              CPF deve ter o formato de 123.456.789-99
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="telefone">Telefone: </label>
+            <input type="text" class="form-control" name="telefone" [(ngModel)]="sindico.telefone" required minlength="8" maxlength="8" #telefone="ngModel">
+          </div>
+          <div class="alert alert-danger" *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)">
+            <div *ngIf="telefone.errors.required">
+              Telefone é um campo obrigatório
+            </div>
+            <div *ngIf="telefone.errors.required">
+              Telefone deve ter o formato de 3333-3333 ou 9 9999-9999
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="casa">Nº da Casa: </label>
+            <input type="text" class="form-control" name="casa" [(ngModel)]="sindico.nrCasa" required minlength="1" #casa="ngModel">
+          </div>
+  
+          <div class="alert alert-danger" *ngIf="casa.invalid && (casa.dirty || casa.touched)">
+            <div *ngIf="casa.errors.required">
+              Nº da casa é um campo obrigatório
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-success" role="button" (click)='create()' *ngIf="!sindico.id else elseBlock" [disabled]="!sindicoForm.form.valid">Salvar</button>
+  
+        <ng-template #elseBlock>
+          <button type="submit" class="btn btn-success" role="button" (click)='update()' [disabled]="!sindicoForm.form.valid">Atualizar</button>
+        </ng-template>
+        </form>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,52 @@
+<app-detalhe-sindico *ngIf="sindicoSelecionado" [sindico] = "sindicoSelecionado"></app-detalhe-sindico>
+
+<div class="card bg-light mb-3">
+  <div class="card-header">Síndicos</div>
+  <div class="card-body">
+
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/sindico/form']">Novo Sindico</button>
+  </div>
+  <div *ngIf="sindicos?.length == 0" class="alert alert-info">
+    Nenhum sindico cadastrado.
+  </div>
+    <table class="table table-bordered table-striped" *ngIf="sindicos?.length>0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Nº Casa</th>
+          <th>Telefone</th>
+          <th>Detalhe</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sindico of sindicos">
+          <td>{{ sindico.id }}</td>
+          <td>{{ sindico.nome }}</td>
+          <td>{{ sindico.nrCasa }}</td>
+          <td>{{ sindico.telefone }}</td>
+          <td>
+            <button type="button" name="detalhe" (click)="abrirModal(sindico)" class="btn btn-info"><span class="material-icons">
+              contacts
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="editar" [routerLink]="['/sindico/form', sindico.id]" class="btn btn-warning"><span class="material-icons">
+              edit
+              </span></button>
+          </td>
+          <td>
+            <button type="button" name="excluir" (click)='delete(sindico)' class="btn btn-danger"><span class="material-icons">
+              delete
+              </span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-paginadors *ngIf="paginador" [paginador] = "paginador"></app-paginadors>
+  </div>
+</div>
+

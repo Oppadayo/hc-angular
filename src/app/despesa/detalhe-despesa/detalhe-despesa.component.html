@@ -17,7 +17,7 @@
     
                   <ul *ngIf="despesa" class="list-group mb-3">
                     <li class="list-group-item active"><span>Nome: </span>{{ despesa.nome }}</li>
-                    <li class="list-group-item"><span>Valor: R$ </span>{{ despesa.valor }}</li>
+                    <li class="list-group-item"><span>Valor: </span>{{ despesa.valor | currency: 'BRL' }}</li>
                     <li class="list-group-item"><span>Data: </span>{{ despesa.data }}</li>
                     <li class="list-group-item"><span>Tipo de Despesa: </span>{{ despesa.tipoDespesa.tipo }}</li>                       
                   </ul>

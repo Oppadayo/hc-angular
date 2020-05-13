@@ -19,23 +19,19 @@
   
           <div class="form-group">
             <label for="valor">Valor: </label>
-            <input type="text" class="form-control" name="valor" [(ngModel)]="despesa.valor" required minlength="1"  #valor="ngModel">
+            <input mask="separator.2" thousandSeparator="." prefix="R$"  type="text" class="form-control" name="valor" [(ngModel)]="despesa.valor" required minlength="1"  #valor="ngModel">
           </div>
           <div class="alert alert-danger" *ngIf="valor.invalid && (valor.dirty || valor.touched)">
             <div *ngIf="valor.errors.required">
-              CPF é um campo obrigatório
+              Valor é um campo obrigatório
             </div>            
           </div>
   
           <div class="form-group">
             <label for="data">Data: </label>
-            <input type="text" class="form-control" name="data" [(ngModel)]="despesa.data" required #data="ngModel">
+            <input type="date" class="form-control" name="data" [(ngModel)]="despesa.data" required>
           </div>
-          <div class="alert alert-danger" *ngIf="data.invalid && (data.dirty || data.touched)">
-            <div *ngIf="data.errors.required">
-              Telefone é um campo obrigatório
-            </div>            
-        </div>
+          
 
         <div class="form-group">
           <label for="tipo">Tipo de Despesa: </label>

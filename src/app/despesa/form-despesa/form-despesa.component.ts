@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { TipoDespesa } from '../tipodespesa';
 
+
 @Component({
   selector: 'app-form-despesa',
   templateUrl: './form-despesa.component.html',
@@ -15,7 +16,6 @@ export class FormDespesaComponent implements OnInit {
 
   despesa: Despesa = new Despesa();
   tipoDespesa: TipoDespesa[]; 
-
   constructor(private despesaService: DespesaService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {

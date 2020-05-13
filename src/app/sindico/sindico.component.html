@@ -27,7 +27,7 @@
           <td>{{ sindico.id }}</td>
           <td>{{ sindico.nome }}</td>
           <td>{{ sindico.nrCasa }}</td>
-          <td>{{ sindico.telefone }}</td>
+          <td>{{ sindico.telefone | mask: '0 0000-0000'}}</td>
           <td>
             <button type="button" name="detalhe" (click)="abrirModal(sindico)" class="btn btn-info"><span class="material-icons">
               contacts

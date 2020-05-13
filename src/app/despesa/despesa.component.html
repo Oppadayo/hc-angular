@@ -7,14 +7,12 @@
       <div class="my-2 text-left">
         <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/despesa/form']">Nova Despesa</button>
       </div>
-  
-      <table class="table table-bordered table-striped" >
-     
+       
         <div>
           <canvas id="canvas">{{ chart }}</canvas>
         </div>       
   
-    </table>
+
     </div>
     </div>
   </div>
@@ -26,15 +24,16 @@
 
       <div class="my-2 text-left">
         <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/despesa/form']">Nova Despesa</button>
+      </div>    
+      <div>
+          <span style="color: red;">Total: -{{ soma | mask: 'separator.2' }}</span>
       </div>
-  
-      <table class="table table-bordered table-striped" >     
         
         <div class="col-sm-6" >
           <canvas class="relative" id="canvaspie" height="345">{{ chart }}</canvas>
         </div>
   
-    </table>
+    
     </div>
     </div>
   </div>
@@ -69,7 +68,7 @@
         <tr *ngFor="let despesa of despesas">
           <td>{{ despesa.id }}</td>
           <td>{{ despesa.nome }}</td>
-          <td>{{ despesa.valor }}</td>
+          <td>{{ despesa.valor | currency: 'BRL'}}</td>
           <td>{{ despesa.data }}</td>
           <td>{{ despesa.tipoDespesa.tipo }}</td>
          <td>

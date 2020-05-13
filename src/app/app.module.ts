@@ -32,6 +32,8 @@ import { SindicoService } from './sindico/sindico.service';
 import { FormDespesaComponent } from './despesa/form-despesa/form-despesa.component';
 import { DetalheDespesaComponent } from './despesa/detalhe-despesa/detalhe-despesa.component';
 import { PaginadordComponent } from './despesa/paginadord/paginadord.component';
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 
 registerLocaleData(localePT, 'pt-BR');
@@ -87,7 +89,9 @@ const routes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    TextMaskModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [MoradorService,
     LoginService,

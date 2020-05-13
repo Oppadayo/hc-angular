@@ -20,6 +20,7 @@ export class DespesaComponent implements OnInit {
   chart: [];  
   paginador: any;
   despesaSelecionado: Despesa;
+  soma = 0;
   constructor(private despesaService: DespesaService, private modaldService: ModaldService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -29,6 +30,13 @@ export class DespesaComponent implements OnInit {
        const valord = res.map(res => res.valor);
        const datad = res.map(res => res.data);
        const tipod = res.map(res => res.tipoDespesa.tipo)
+       const tipoid = res.map(res => res.tipoDespesa.id);
+       const reducer = (accumulator, currentValue) => accumulator + currentValue;
+       
+       if(tipoid[1] == tipoid[1]){
+       this.soma = (valord.reduce(reducer))
+       }
+      console.log(tipod)
               
        this.chart = new Chart('canvas', {
         responsive: true,
@@ -68,9 +76,9 @@ export class DespesaComponent implements OnInit {
           datasets: [
             {              
               data: valord,
-              backgroundColor	 : '#c0392b',
+              backgroundColor	 : '#f39c12',
               fill: false
-            },            
+            },                        
           ]
         },
         options: {

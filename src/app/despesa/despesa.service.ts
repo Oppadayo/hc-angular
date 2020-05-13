@@ -7,6 +7,7 @@ import { throwError, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Contador } from '../contador/contador';
 import { TipoDespesa } from './tipodespesa';
+import { formatDate, formatCurrency } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,7 @@ getTipoDespesa(): Observable<TipoDespesa[]>{
       }),
       map( (response: any) => {
         (response.content as Despesa[]).map(despesa => {
+          despesa.data = formatDate(despesa.data, 'dd/MM/yyyy', 'pt-br')
           return despesa;
         });
         return response;
